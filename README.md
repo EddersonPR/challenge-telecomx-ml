@@ -1,6 +1,21 @@
 # 📡 TelecomX — Predicción de Cancelación de Clientes (Churn)
 ### Challenge Académico — Parte 2: Modelado Predictivo
 
+## 🗂️ Tecnologías Utilizadas
+
+![Python](https://img.shields.io/badge/Python-3.9+-blue)
+![Pandas](https://img.shields.io/badge/Pandas-1.5+-green)
+![Scikit--learn](https://img.shields.io/badge/Scikit--learn-1.2+-orange)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-red)
+
+| Librería | Uso |
+|---|---|
+| `pandas` | Manipulación y análisis de datos |
+| `numpy` | Operaciones numéricas |
+| `matplotlib` / `seaborn` | Visualizaciones |
+| `scikit-learn` | Modelos, métricas, pipeline y preprocesamiento |
+| `joblib` | Serialización del modelo |
+
 ---
 
 ## 🎯 Propósito del Análisis
@@ -23,22 +38,20 @@ El pipeline cubre todo el ciclo de modelado:
 ## 📁 Estructura del Proyecto
 
 ```
-telecomx-churn-parte2/
+challenge-telecomx-ml/
 │
-├── TelecomX_Churn_Parte2.ipynb       # Notebook principal con el pipeline completo
+├── telecomx_machine_learning.ipynb       # Notebook principal con el pipeline completo
 │
 ├── data/
-│   └── telecomx_tratado.csv          # Dataset limpio y procesado (post EDA Parte 1)
+│   └── datos_tratados.csv                # Dataset limpio y procesado (post EDA Parte 1)
 │
-├── models/
+├── modelos/
 │   ├── pipeline_churn_telecom_*.joblib   # Pipeline serializado (preprocesamiento + modelo)
 │   ├── feature_names_*.joblib            # Nombres de features post-encoding
 │   └── metadata_*.json                   # Metadata del modelo (métricas, fecha, config)
 │
 ├── visualizaciones/
 │   ├── heatmap_correlacion.png           # Matriz de correlación variables numéricas
-│   ├── churn_por_contrato.png            # Tasa de churn por tipo de contrato
-│   ├── churn_por_internet.png            # Tasa de churn por tipo de internet
 │   ├── roc_comparacion_modelos.png       # Curvas ROC de los 3 modelos
 │   ├── matriz_confusion_balanced.png     # Matriz de confusión modelo final
 │   └── feature_importance.png           # Importancia de variables (coeficientes)
@@ -251,14 +264,14 @@ joblib>=1.2.0
 import pandas as pd
 
 # Cargar dataset tratado
-datos = pd.read_csv('data/telecomx_tratado.csv')
+datos = pd.read_csv('https://raw.githubusercontent.com/EddersonPR/challenge-telecomx-ml/refs/heads/main/data/datos_tratados.csv')
 print(f"Dataset cargado: {datos.shape[0]} registros, {datos.shape[1]} columnas")
 ```
 
 ### 3. Ejecutar el Notebook
 
 ```bash
-jupyter notebook TelecomX_Churn_Parte2.ipynb
+jupyter notebook telecomx_machine_learning.ipynb
 ```
 
 Ejecutar las celdas en el siguiente orden:
@@ -293,8 +306,14 @@ Ejecutar las celdas en el siguiente orden:
 import joblib
 import pandas as pd
 
+# Opción 1:
+# Cargar a Colab y pegar enlace de la carpeta donde se aloja el modelo 'pipeline'
+
+# Opción 2:
+# Guardar y almacenar modelo en repositorio local y pegar ruta o enlace de carpeta en VSC
+
 # Cargar pipeline serializado
-pipeline = joblib.load('models/pipeline_churn_telecom_YYYYMMDD_HHMMSS.joblib')
+pipeline = joblib.load('/content/pipeline_churn_telecom_20260304_012256.joblib')
 
 # Datos crudos de nuevos clientes (sin preprocesamiento previo)
 nuevos_clientes = pd.DataFrame([{
@@ -317,8 +336,8 @@ nuevos_clientes = pd.DataFrame([{
 }])
 
 # Predicción directa sobre datos crudos
-prediccion     = pipeline.predict(nuevos_clientes)
-probabilidad   = pipeline.predict_proba(nuevos_clientes)[:, 1]
+prediccion   = pipeline.predict(nuevos_clientes)
+probabilidad = pipeline.predict_proba(nuevos_clientes)[:, 1]
 
 print(f"Churn predicho   : {prediccion[0]}")
 print(f"Probabilidad     : {probabilidad[0]:.1%}")
@@ -360,21 +379,4 @@ Diferencia max   : 0.006 (sin overfitting)
 
 ---
 
-## 🗂️ Tecnologías Utilizadas
-
-![Python](https://img.shields.io/badge/Python-3.9+-blue)
-![Pandas](https://img.shields.io/badge/Pandas-1.5+-green)
-![Scikit--learn](https://img.shields.io/badge/Scikit--learn-1.2+-orange)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-red)
-
-| Librería | Uso |
-|---|---|
-| `pandas` | Manipulación y análisis de datos |
-| `numpy` | Operaciones numéricas |
-| `matplotlib` / `seaborn` | Visualizaciones |
-| `scikit-learn` | Modelos, métricas, pipeline y preprocesamiento |
-| `joblib` | Serialización del modelo |
-
----
-
-*Challenge Académico — Data Science | TelecomX Parte 2*
+*Edderson Pomacanchari - AluraLatam — Data Science | Challenge TelecomX Parte 2 (ML)*
