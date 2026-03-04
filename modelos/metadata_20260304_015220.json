@@ -1,0 +1,18 @@
+{
+    "fecha_entrenamiento": "20260304_015220",
+    "fecha_legible": "04/03/2026 01:52",
+    "n_observaciones": 7043,
+    "n_features": 20,
+    "algoritmo": "LogisticRegression",
+    "class_weight": "balanced",
+    "metricas_esperadas": {
+        "recall": 0.79,
+        "precision": 0.51,
+        "f1": 0.62,
+        "auc_roc": 0.84
+    },
+    "distribucion_churn": {
+        "No": 5174,
+        "Yes": 1869
+    }
+}
